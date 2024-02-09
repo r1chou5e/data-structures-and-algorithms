@@ -6,6 +6,7 @@ const generateSubarrays = (arr) => {
 
   const combine = (current, start) => {
     for (let i = start; i < arr.length; i++) {
+      console.log([...current, arr[i]]);
       result.push([...current, arr[i]]);
       combine([...current, arr[i]], i + 1);
     }
