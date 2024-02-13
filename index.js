@@ -129,8 +129,56 @@ function dayOfProgrammer(year) {
   }
 }
 
+function processData(input) {
+  //Enter your code here
+  const input1 = input.split('\n')[0],
+    input2 = input.split('\n')[1];
+  const N = parseInt(input1.split(' ')[0]),
+    X = parseInt(input1.split(' ')[1]);
+  const a = input2.split(' ').map((value) => parseInt(value));
+  let count = 0;
+  for (let i = 0; i < N; i++) {
+    for (let j = i; j < N; j++) {
+      if (a[i] * a[i] + a[j] == X) count++;
+    }
+  }
+  return count;
+}
+
+function distributeCandies(input) {
+  let testCases = [];
+  input
+    .split('\n')
+    .filter((value, index) => index !== 0)
+    .forEach((value, index) => {
+      if (index % 2 === 0) {
+        testCases.push({ input1: value });
+      } else {
+        testCases[testCases.length - 1].input2 = value;
+      }
+    });
+
+  const minCandiesForJen = (x, m) => {
+    if (m % (x + 1) === 0) return m / (x + 1);
+    return parseInt((m % (x + 1)) + m / (x + 1));
+  };
+
+  testCases.forEach((testCase) => {
+    if (testCase.input2) {
+      const m = parseInt(testCase.input1.split(' ')[1]);
+      const a = testCase.input2.split(' ').map((value) => parseInt(value));
+      console.log(
+        a.reduce((acc, value) => acc + minCandiesForJen(value, m), 0)
+      );
+    }
+  });
+}
+
 // countApplesAndOranges(7, 11, 5, 15, [-2, 2, 1], [5, -6]);
 // console.log(kangaroo(0, 3, 4, 2));
 // console.log(breakingRecords([10, 5, 20, 20, 4, 5, 2, 25, 1]));
 // console.log(migratoryBirds([1, 2, 3, 4, 5, 4, 3, 2, 1, 3, 4]));
-dayOfProgrammer(1918);
+// dayOfProgrammer(1918);
+// console.log(processData('10 12\n3 3 3 3 3 3 3 3 3 3'));
+// console.log(distributeCandies('2\n3 5\n3 4 5\n2 4\n1 6'));
+distributeCandies('4\n2 4\n5 3\n3 10\n2 7 3\n4 7\n3 3 1 8\n2 6\n1 2');
